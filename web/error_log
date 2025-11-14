@@ -1,0 +1,6 @@
+[17-Nov-2016 20:26:26 UTC] PHP Warning:  mysqli::mysqli(): (HY000/2002): No such file or directory in /home/s2aw08/public_html/ctw/test5/index.php on line 243
+[19-Nov-2016 12:36:57 UTC] PHP Warning:  mysqli::mysqli(): (08004/1040): Too many connections in /home/s2aw08/public_html/ctw/test5/index.php on line 243
+[19-Nov-2016 12:37:39 UTC] PHP Warning:  mysqli::mysqli(): (08004/1040): Too many connections in /home/s2aw08/public_html/ctw/test5/index.php on line 243
+[19-Nov-2016 12:38:18 UTC] PHP Warning:  mysqli::mysqli(): (08004/1040): Too many connections in /home/s2aw08/public_html/ctw/test5/user.php on line 241
+[19-Nov-2016 12:48:36 UTC] PHP Warning:  mysqli::mysqli(): (08004/1040): Too many connections in /home/s2aw08/public_html/ctw/test5/user.php on line 241
+[19-Nov-2016 12:48:44 UTC] PHP Warning:  mysqli::mysqli(): (08004/1040): Too many connections in /home/s2aw08/public_html/ctw/test5/index.php on line 243
