@@ -1,17 +1,31 @@
 <?php
 
-$_SESSION["login_done"] = false;
-// datos para la coneccion a mysql
-/*define('DB_SERVER','qyk884.ctw.es');
-define('DB_NAME','qyk884');
-define('DB_USER','qyk884');
-define('DB_PASS','CTWbbdd17');*/
-define('DB_SERVER','localhost');
-define('DB_NAME','QTC152');
-//define('DB_USER','phpmyadmin');
-define('DB_USER','intra_phpmyadmin');
-define('DB_PASS','Unisys00!');
+declare(strict_types=1);
 
+const DB_SERVER = 'localhost';
+const DB_NAME   = 'QTC152';
+const DB_USER   = 'intra_phpmyadmin';
+const DB_PASS   = 'Unisys00!';
 
-$con = mysqli_connect(DB_SERVER,DB_USER,DB_PASS, DB_NAME);
-?>
+/**
+ * Returns a shared mysqli connection instance.
+ */
+function get_db_connection(): \mysqli
+{
+    static $connection = null;
+
+    if ($connection instanceof \mysqli) {
+        return $connection;
+    }
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+    try {
+        $connection = new \mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+        $connection->set_charset('utf8mb4');
+    } catch (\mysqli_sql_exception $exception) {
+        throw new \RuntimeException('No se pudo establecer la conexión con la base de datos.', 0, $exception);
+    }
+
+    return $connection;
+}

@@ -1,84 +1,132 @@
 <?php
 
-include_once "conexion.php";
+declare(strict_types=1);
+
 session_start();
 
+require_once __DIR__ . '/conexion.php';
 
-function verificar_login($user, $password, $con,&$result)
+/**
+ * Attempts to locate the requested user and validate the given password.
+ * Returns the user data on success or null when the credentials are invalid.
+ */
+function verify_login(string $user, string $password, \mysqli $connection): ?array
 {
-    $sql="SELECT * FROM USUARIO WHERE user = '$user' and password = '$password'";
+    $query = 'SELECT ID_USUARIO AS id_usuario, user, nombre, rol, imagen, password FROM USUARIO WHERE user = ? LIMIT 1';
+    $statement = $connection->prepare($query);
 
-    $result = mysqli_query($con,$sql);
-    $numero_filas = mysqli_num_rows($result);
-
-
-    /*$sql = "SELECT * FROM USUARIO WHERE user = '$user' and password = '$password' and activo = 1";
-    $rec = mysqli_query($sql);
-    $count = 0;
-    var_dump(mysqli_query($sql));
-
-
-    while ($row = mysqli_fetch_object($rec)) {
-        $count++;
-        $result = $row;
+    if ($statement === false) {
+        throw new \RuntimeException('No se pudo preparar la consulta de autenticación.');
     }
 
-    if ($count == 1) {
-        return 1;
-    } else {
-        return 0;
-    }*/
-    if ($numero_filas == 0) {
-        return 0;
-    } else {
-        return 1;
+    $statement->bind_param('s', $user);
+    $statement->execute();
+
+    $result = $statement->get_result();
+
+    if ($result === false) {
+        return null;
     }
+
+    $row = $result->fetch_assoc();
+
+    if ($row === null) {
+        return null;
+    }
+
+    $storedPassword = (string)($row['password'] ?? '');
+    $passwordInfo   = password_get_info($storedPassword);
+
+    $isValid = false;
+
+    if ($passwordInfo['algo'] !== 0) {
+        $isValid = password_verify($password, $storedPassword);
+    } else {
+        $isValid = hash_equals($storedPassword, md5($password));
+    }
+
+    if (!$isValid) {
+        return null;
+    }
+
+    unset($row['password']);
+
+    return $row;
 }
 
-if (!isset($_SESSION['userid'])) {
-    if (isset($_POST['login'])) {
+if (!isset($_SESSION['login_done'])) {
+    $_SESSION['login_done'] = false;
+}
 
-        $user = $_POST['user'];
-        $password = $_POST['password'];
-        $password = md5($password);
+if (!empty($_SESSION['login_done'])) {
+    header('Location: ./web/index.php');
+    exit;
+}
 
+$errorMessage = '';
+$connection   = null;
 
-        if (verificar_login($user, $password, $con, $result) == 1) {
-            $nombre = $_POST['nombre'];
-            $_SESSION["id_usuario"] = $result->ID_USUARIO;
-            $_SESSION["user"] = $user;
-            $_SESSION["username"] = $result->nombre;
-            $_SESSION['user_rol'] = $result->rol;
-            $_SESSION['imagen'] = $result->imagen;
-            $_SESSION["login_done"] = true;
-            header("location:./web/index.php");
+try {
+    $connection = get_db_connection();
+} catch (\RuntimeException $exception) {
+    $errorMessage = 'No se pudo conectar con la base de datos. Inténtelo de nuevo más tarde.';
+    error_log($exception->getMessage());
+}
 
-        } else {
-            echo '<div class="error">Usuario o contrase�a incorrectos</div>';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $user = trim((string)($_POST['user'] ?? ''));
+    $password = (string)($_POST['password'] ?? '');
 
+    if ($user === '' || $password === '') {
+        $errorMessage = 'Debe introducir un usuario y una contraseña.';
+    } elseif ($connection === null) {
+        $errorMessage = 'No se pudo conectar con la base de datos. Inténtelo de nuevo más tarde.';
+    } else {
+        try {
+            $userData = verify_login($user, $password, $connection);
+
+            if ($userData !== null) {
+                $_SESSION['id_usuario'] = (int)$userData['id_usuario'];
+                $_SESSION['userid'] = (int)$userData['id_usuario'];
+                $_SESSION['user'] = $userData['user'];
+                $_SESSION['username'] = $userData['nombre'] ?? '';
+                $_SESSION['user_rol'] = $userData['rol'] ?? '';
+                $_SESSION['imagen'] = $userData['imagen'] ?? '';
+                $_SESSION['login_done'] = true;
+
+                header('Location: ./web/index.php');
+                exit;
+            }
+
+            $errorMessage = 'Usuario o contraseña incorrectos.';
+        } catch (\Throwable $exception) {
+            $errorMessage = 'Se produjo un error al procesar la solicitud. Inténtelo de nuevo más tarde.';
+            error_log($exception->getMessage());
         }
     }
-    ?>
-
-
+}
+?>
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Intranet - Inicio de sesión</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/login.css">
     <script src="./assets/js/login.js"></script>
-
-
-    <div class="login-page">
-        <div class="form">
-            <form class="login-form" action="" method="post">
-                <input type="text" name="user" placeholder="username"/>
-                <input type="password" name="password" placeholder="password"/>
-                <button name="login" type="submit" value="login">login</button>
-            </form>
-        </div>
+</head>
+<body>
+<div class="login-page">
+    <div class="form">
+        <?php if ($errorMessage !== ''): ?>
+            <div class="error"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></div>
+        <?php endif; ?>
+        <form class="login-form" action="" method="post" novalidate>
+            <input type="text" name="user" placeholder="Usuario" value="<?php echo isset($user) ? htmlspecialchars($user, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : ''; ?>"/>
+            <input type="password" name="password" placeholder="Contraseña"/>
+            <button name="login" type="submit" value="login">Acceder</button>
+        </form>
     </div>
-
-    <?php
-} else {
-    echo 'Su usuario ingreso correctamente.';
-    echo '<a href="logout.php">Logout</a>';
-}
-?>
+</div>
+</body>
+</html>
