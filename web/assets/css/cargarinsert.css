@@ -1,0 +1,88 @@
+
+div#precargador {
+  left:50%;
+  top:50%;
+  position:fixed;
+  margin-top:-150px; 
+  margin-left:-160px;
+  padding: 10px;
+  width: 320px;
+
+}
+p#progressnum {
+  color: black;
+  font-weight: bold;
+    font-size: 25px;
+  height: 20px;
+    margin-bottom: 20px;
+    font-style: italic;
+  text-align: center;
+}
+#progressbar{ 
+    height: 24px;
+    background-color: #191919;
+    border-radius: 16px;
+  margin: 0 0 10px;
+  width: 300px;
+}
+div#precargador input {
+    background: #eee;
+    border: none;
+    border-radius: 9px;
+    background: #444;
+    color: #777;
+    cursor: pointer;
+}
+div#precargador input:hover {
+    background: #666;
+    color: #333;
+}
+#indicador{ 
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 15px 15px 15px 15px;
+    color: #0099CC;
+    display: inline-block;
+    height: 24px;
+    margin-right: 10px;
+    width: 300px;
+  background-color: #0099CC;
+    background-image: 
+    repeating-linear-gradient(
+    45deg, 
+    rgba(255, 255, 255, 0.2) 0px, 
+    rgba(255, 255, 255, 0.2) 10px, 
+    rgba(255, 255, 255, 0) 10px, 
+    rgba(255, 255, 255, 0) 20px), 
+    linear-gradient(
+    rgba(255, 255, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0) 60%), 
+    none;
+  /*------ PARA CHROME Y SAFARI -----*/
+  background: 
+    -webkit-repeating-linear-gradient(
+      45deg, 
+      rgba(255,255,255,.2) 0,
+      rgba(255,255,255,.2) 10px, 
+      rgba(255,255,255,0) 10px,
+      rgba(255,255,255,0) 20px
+    ),
+    -webkit-linear-gradient(
+      rgba(255,255,255,.1) 50%,
+      rgba(255,255,255,0) 60%
+    ),
+    #09c;
+  /*------ PARA FIREFOX----*/
+  background: 
+    -moz-repeating-linear-gradient(
+      45deg, 
+      rgba(255,255,255,.2) 0,
+      rgba(255,255,255,.2) 10px, 
+      rgba(255,255,255,0) 10px,
+      rgba(255,255,255,0) 20px
+    ),
+    -moz-linear-gradient(
+      rgba(255,255,255,.1) 50%,
+      rgba(255,255,255,0) 60%
+    ),
+    #09c;
+}

@@ -1,0 +1,176 @@
+/*http://www.bestcssbuttongenerator.com/#/2*/
+
+.myButton:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #db8f0b), color-stop(1, #c27013));
+    background:-moz-linear-gradient(top, #db8f0b 5%, #c27013 100%);
+    background:-webkit-linear-gradient(top, #db8f0b 5%, #c27013 100%);
+    background:-o-linear-gradient(top, #db8f0b 5%, #c27013 100%);
+    background:-ms-linear-gradient(top, #db8f0b 5%, #c27013 100%);
+    background:linear-gradient(to bottom, #db8f0b 5%, #c27013 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#db8f0b', endColorstr='#c27013',GradientType=0);
+    background-color:#db8f0b;
+}
+.myButton:active {
+    position:relative;
+    top:1px;
+}
+
+.fondo {
+    height:100%;
+    width:1200px;
+    background-color: white;
+}
+
+.pepe{
+    margin-left:100px;
+    margin-right:100000px;
+    margin-top:100000px;
+}
+
+
+.button_horas {
+    background-color: #E97C24;
+    border: 2px solid #E97C24;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 50%;
+}
+
+
+.button_horas:hover {
+    background-color: #E9A36A;
+    color: white;
+}
+
+.button_buscador {
+    background-color: #E97C24;
+    border: 2px solid #E97C24;
+    color: white;
+    padding: 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button_subir_imagen {
+    background-color: #E97C24;
+    border: 2px solid #CE6611;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width:100%;
+
+}
+
+.button_enviar_imagen {
+    background-color: #E97C24;
+    border: 2px solid #CE6611;
+    color: white;
+    padding: 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
+.button_buscador:hover {
+    background-color: #E9A36A;
+    color: white;
+}
+
+.button_insert {
+    background-color: #E97C24;
+    border: 2px solid #E97C24;
+    color: white;
+    padding: 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
+.button_insert:hover {
+    background-color: #E9A36A;
+    color: white;
+}
+
+
+
+/*****************************************
+************** CSS CHECKBOX***************
+******************************************/
+.switcha {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+.switcha input {display:none;}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: #2196F3;
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider:before {
+    -webkit-transform: translateX(1px);
+    -ms-transform: translateX(10px);
+    transform: translateX(19px);
+}
+/* Rounded sliders */
+.slider.rounda {
+    border-radius: 34px;
+}
+.slider.rounda:before {
+    border-radius: 50%;
+}
+

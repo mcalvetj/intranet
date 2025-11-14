@@ -1,0 +1,10 @@
+/* editor */
+a,
+a:hover {
+  color: #000;
+}
+
+a.editable-click,
+a.editable-click:hover {
+  border: none;
+}

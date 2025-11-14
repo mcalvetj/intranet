@@ -1,0 +1,132 @@
+/* taula */
+table {
+  border: none;
+}
+
+div.dataTables_scroll {
+  margin-right: 10px;
+}
+
+table thead,
+table tfoot {
+  background-color: #e98e42;
+  border: 1px solid black;
+}
+
+table tr.even {
+  background-color: rgba(233, 142, 66, 0.11);
+}
+table.dataTable tbody>tr.odd.selected,
+table.dataTable tbody>tr.odd.selected>.sorting_1 {
+  background-color: #706f6e;
+  transition: all 0.2s ease;
+}
+
+table.dataTable tbody>tr.even.selected,
+table.dataTable tbody>tr.even.selected>.sorting_1 {
+  background-color: #505050;
+  transition: all 0.2s ease;
+}
+
+table.dataTable tbody>tr.odd.selected:hover,
+table.dataTable tbody>tr.odd.selected:focus,
+table.dataTable tbody>tr.odd.selected:hover>.sorting_1,
+table.dataTable tbody>tr.odd.selected:focus>.sorting_1 {
+  background-color: #706f6e;
+}
+
+table.dataTable tbody>tr.even.selected:hover,
+table.dataTable tbody>tr.even.selected:focus,
+table.dataTable tbody>tr.even.selected:hover>.sorting_1,
+table.dataTable tbody>tr.even.selected:focus>.sorting_1 {
+  background-color: #505050;
+}
+
+table.dataTable tbody tr.selected td a {
+  color: #fff;
+}
+
+table tr.odd,
+table tr.even {
+  transition: all .2s ease;
+}
+/*
+table tr.odd:hover,
+table tr.odd:focus {
+  background-color: #fcf8ff;
+}
+
+table tr.even:hover,
+table tr.even:focus {
+  background-color: #f4e4ff;
+}*/
+
+/* botons */
+div.dt-buttons.button-group {
+  width: 50%;
+  margin: 0;
+  float: left;
+}
+
+a.button.small {
+  height: 37px;
+  margin: 0;
+  margin-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 0;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: #4b0082;
+  color: #fff;
+  transition: all .1s ease;
+}
+
+a.button.small:hover,
+a.button.small:focus {
+  background-color: #2f0052;
+  color: #fff;
+}
+
+div.dataTables_filter {
+  margin-right: 10px;
+}
+
+div.dataTables_info {
+  width: 50%;
+  margin: 0;
+  float: left;
+}
+
+/* paginació */
+ul.pagination {
+  margin: 0;
+  margin-right: 10px;
+}
+
+ul.pagination li a:hover,
+ul.pagination li a:focus {
+  color: #ea8f43;
+}
+
+ul.pagination li.current a {
+  background-color: #4b0082;
+}
+
+ul.pagination li.current a:hover,
+ul.pagination li.current a:focus {
+  background-color: #4b0082;
+  color: #fff;
+}
+
+/* editor */
+a,
+a:hover {
+  color: #000;
+}
+
+a.editable-click,
+a.editable-click:hover {
+  border: none;
+}
