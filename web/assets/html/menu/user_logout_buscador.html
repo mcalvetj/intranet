@@ -1,0 +1,45 @@
+<style>
+    @media (max-width: 600px) {
+        .divider hr {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        hr{
+            margin-top:10px;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .espacio{
+            margin-top:25px;
+        }
+
+        #x {
+            margin-left: 8%;
+        }
+
+        #y {
+            margin-left: 8%;
+        }
+    }
+</style>
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="divider">
+        <hr class="left"/>
+    </li>
+    <li id="x" class="espaciado espacio">
+        <a href="../user.php">
+            <p><?php echo $_SESSION["username"]; ?></p>
+        </a>
+    </li>
+    <li id="y" class="espaciado">
+        <a href="../../logout.php">
+            <p>Salir</p>
+        </a>
+    </li>
+</ul>

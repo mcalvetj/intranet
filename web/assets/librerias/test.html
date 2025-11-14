@@ -1,0 +1,12 @@
+<!-- ARCHIVOS NECESARIOS PARA DATATABLES-->
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+<!--Si el usuario tiene rol suficiente puede editar las tablas-->
+<? php
+    if ($_SESSION["user_rol"] <= 1) {
+//<!--COLUMNAS QUE PUEDEN SER MODIFICADAS-->
+echo "<script type="text/javascript\" src="../assets/js/editor/edit_cliente.js"></script>";
+} ?>
+
