@@ -41,8 +41,11 @@ function verify_login(string $user, string $password, \mysqli $connection): ?arr
 
     if ($passwordInfo['algo'] !== 0) {
         $isValid = password_verify($password, $storedPassword);
+    } elseif (preg_match('/^[a-f0-9]{32}$/i', $storedPassword) === 1) {
+        $normalizedStoredPassword = strtolower($storedPassword);
+        $isValid = hash_equals($normalizedStoredPassword, md5($password));
     } else {
-        $isValid = hash_equals($storedPassword, md5($password));
+        $isValid = hash_equals($storedPassword, $password);
     }
 
     if (!$isValid) {
@@ -77,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $user = trim((string)($_POST['user'] ?? ''));
     $password = (string)($_POST['password'] ?? '');
 
-    if ($user === '' || $password === '') {
-        $errorMessage = 'Debe introducir un usuario y una contraseña.';
+    if ($user === '') {
+        $errorMessage = 'Debe introducir un usuario.';
     } elseif ($connection === null) {
         $errorMessage = 'No se pudo conectar con la base de datos. Inténtelo de nuevo más tarde.';
     } else {
