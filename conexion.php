@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 const DB_SERVER = 'localhost';
 const DB_NAME   = 'QTC152';
-const DB_USER   = 'intra_phpmyadmin';
+const DB_USER   = 'mcalvetj';
 const DB_PASS   = 'Unisys00!';
 
 /**
