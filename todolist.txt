@@ -1,0 +1,7 @@
+- crear contra facturas
+- añadir a minutajes el campo tarea realizada
+- Cuando se vaya a facturar la pre factuar poder añadir  
+
+
+
+
