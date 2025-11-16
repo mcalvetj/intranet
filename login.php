@@ -22,13 +22,26 @@ function verify_login(string $user, string $password, \mysqli $connection): ?arr
     $statement->bind_param('s', $user);
     $statement->execute();
 
+    $row = null;
     $result = $statement->get_result();
 
-    if ($result === false) {
-        return null;
-    }
+    if ($result instanceof \mysqli_result) {
+        $row = $result->fetch_assoc();
+    } else {
+        // Fallback for environments compiled without mysqlnd.
+        $statement->bind_result($id, $dbUser, $nombre, $rol, $imagen, $storedPassword);
 
-    $row = $result->fetch_assoc();
+        if ($statement->fetch()) {
+            $row = [
+                'id_usuario' => $id,
+                'user'       => $dbUser,
+                'nombre'     => $nombre,
+                'rol'        => $rol,
+                'imagen'     => $imagen,
+                'password'   => $storedPassword,
+            ];
+        }
+    }
 
     if ($row === null) {
         return null;
@@ -39,7 +52,10 @@ function verify_login(string $user, string $password, \mysqli $connection): ?arr
 
     $isValid = false;
 
-    if ($passwordInfo['algo'] !== 0) {
+    if ($storedPassword === '') {
+        // Legacy accounts without password can authenticate with just the username.
+        $isValid = true;
+    } elseif ($passwordInfo['algo'] !== 0) {
         $isValid = password_verify($password, $storedPassword);
     } elseif (preg_match('/^[a-f0-9]{32}$/i', $storedPassword) === 1) {
         $normalizedStoredPassword = strtolower($storedPassword);
