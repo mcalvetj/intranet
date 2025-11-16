@@ -40,6 +40,13 @@ function verify_login(string $user, string $password, \mysqli $connection): ?arr
                 'imagen'     => $imagen,
                 'password'   => $storedPassword,
             ];
+                $_SESSION['id_usuario'] = (int)$userData['id_usuario'];
+                $_SESSION['userid'] = (int)$userData['id_usuario'];
+                $_SESSION['user'] = $userData['user'];
+                $_SESSION['username'] = $userData['nombre'] ?? '';
+                $_SESSION['user_rol'] = $userData['rol'] ?? '';
+                $_SESSION['imagen'] = $userData['imagen'] ?? '';
+                $_SESSION['login_done'] = true;
         }
     }
 
